@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login | Waste Reporter</title>
+
+  <style>
+    /* Reset and Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      background: linear-gradient(to bottom right, #01460b, #047b15);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+
+    /* Container */
+    .login-container {
+      background: #fff;
+      padding: 40px 45px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-container h2 {
+      color: #01460b;
+      margin-bottom: 25px;
+      font-size: 1.8em;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    /* Input Fields */
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+      outline: none;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    .login-container input:focus {
+      border-color: #047b15;
+      box-shadow: 0 0 4px rgba(4, 123, 21, 0.4);
+    }
+
+    /* Button */
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #047b15;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .login-container button:hover {
+      background-color: #03590f;
+    }
+
+    /* Footer Info */
+    .info {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #047b15;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      body {
+        padding: 20px;
+      }
+
+      .login-container {
+        padding: 30px 25px;
+      }
+
+      .login-container h2 {
+        font-size: 1.5em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>Admin Login</h2>
+
+    <form id="adminLoginForm">
+      <input type="text" id="adminUser" placeholder="Enter Username" required />
+      <input type="password" id="adminPass" placeholder="Enter Password" required />
+      <button type="submit">Login</button>
+    </form>
+
+    <p class="info">Authorized personnel only.</p>
+  </div>
+
+  <script>
+    // admin.js
+
+const adminLoginForm = document.getElementById("adminLoginForm");
+if (adminLoginForm) {
+  adminLoginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById("adminUser").value;
+    const password = document.getElementById("adminPass").value;
+
+    // Default admin credentials
+    const DEFAULT_ADMIN_USERNAME = "admin";
+    const DEFAULT_ADMIN_PASSWORD = "adminpass";
+
+    if (username === DEFAULT_ADMIN_USERNAME && password === DEFAULT_ADMIN_PASSWORD) {
+      // Save admin session in localStorage
+      localStorage.setItem("admin", JSON.stringify({ username }));
+      // Go to admin.html
+      window.location.href = "admin.html";
+    } else {
+      alert("Invalid admin credentials");
+    }
+  });
+}
+  </script>
+</body>
+</html>

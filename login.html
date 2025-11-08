@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waste Reporter - Login</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8fafc;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    header {
+      background-color: #01460b;
+      color: white;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.6em;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ffeb3b;
+      border-bottom: 2px solid #ffeb3b;
+    }
+
+    /* Mobile Menu */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 25px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 2px;
+    }
+
+    /* Login Container */
+    .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    form {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #01460b;
+      font-size: 1.8em;
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #01460b;
+      box-shadow: 0 0 5px rgba(1, 70, 11, 0.3);
+    }
+
+    button {
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 6px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #00400e;
+      transform: scale(1.02);
+    }
+
+    p {
+      margin-top: 15px;
+      color: #555;
+    }
+
+    p a {
+      color: #01460b;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    p a:hover {
+      text-decoration: underline;
+      color: #28a745;
+    }
+
+    /* Footer */
+    footer {
+      background: #01460b;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 0.95em;
+      border-top: 3px solid #066812;
+    }
+
+    footer strong {
+      color: #ffeb3b;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 25px;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #01460b;
+        position: absolute;
+        top: 65px;
+        right: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links li {
+        margin: 10px 0;
+      }
+
+      form {
+        padding: 30px 20px;
+      }
+
+      h2 {
+        font-size: 1.5em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header / Navbar -->
+  <header>
+    <h1 class="logo">Waste Reporter</h1>
+
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="index.html">Logout</a></li>
+    </ul>
+  </header>
+
+  <!-- Login Form -->
+  <div class="container">
+    <form id="loginForm">
+      <h2>Login</h2>
+      <input type="text" id="loginUser" placeholder="Username" required />
+      <input type="password" id="loginPass" placeholder="Matric Number" required />
+      <button type="submit">Login</button>
+      <p>Don’t have an account? <a href="register.html">Register</a></p>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p style="color: white;">© 2025 <strong>Waste Reporter</strong>. Computer Science Department.</p>
+      <p style="color: white;">Developed with 💚 for a cleaner Campus.</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

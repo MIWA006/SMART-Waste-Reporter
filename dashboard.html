@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard - Waste Reporter</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f8f6;
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      background: #01460b;
+      color: white;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo {
+      font-size: 1.6em;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffeb3b;
+      border-bottom: 2px solid #ffeb3b;
+    }
+
+    /* Hamburger Menu */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 25px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 2px;
+    }
+
+    /* Main Section */
+    main {
+      flex: 1;
+      padding: 100px 20px 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      color: #01460b;
+      margin-bottom: 25px;
+      font-size: 1.8em;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    #reportsContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .report {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      transition: transform 0.3s;
+    }
+
+    .report:hover {
+      transform: scale(1.01);
+    }
+
+    .report h3 {
+      color: #0a7b33;
+      margin-bottom: 8px;
+      font-size: 1.2em;
+    }
+
+    .report p {
+      color: #444;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .status {
+      font-weight: 600;
+      color: #0078d4;
+      margin-top: 5px;
+    }
+
+    img {
+      display: block;
+      margin: 10px auto;
+      max-width: 200px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .no-report {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 1.1em;
+      color: gray;
+    }
+
+    /* Footer */
+    footer {
+      background: #01460b;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 0.95em;
+      border-top: 3px solid #066812;
+      margin-top: auto;
+    }
+
+    footer strong {
+      color: #ffeb3b;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 25px;
+      }
+
+      nav {
+        display: none;
+        flex-direction: column;
+        background-color: #01460b;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        text-align: center;
+        padding: 15px 0;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .report {
+        margin: 0 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header / Navbar -->
+  <header>
+    <h1 class="logo">My Dashboard</h1>
+
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html" class="active">My Dashboard</a>
+      <a href="report.html">Report Waste</a>
+      <a href="index.html" id="logoutBtn">Logout</a>
+    </nav>
+  </header>
+
+  <!-- Dashboard Main -->
+  <main>
+    <h2>My Waste Reports</h2>
+    <div id="reportsContainer" class="reportsContainer">
+      <p class="no-report">No reports submitted yet. Start by <a href="report.html" style="color:#01460b; font-weight:600;">reporting waste</a>.</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>© 2025 <strong>Waste Reporter</strong>. Computer Science Department.</p>
+      <p>Developed with 💚 for a cleaner Campus.</p>
+    </div>
+  </footer>
+
+  <script>
+
+    // Mobile Navbar Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    const user = JSON.parse(localStorage.getItem("user"));
+    const allReports = JSON.parse(localStorage.getItem("reports") || "[]");
+    const userReports = allReports.filter(r => r.userId === user.id);
+
+    const container = document.getElementById("reportsContainer");
+    if (userReports.length === 0) {
+      container.innerHTML = `<p class="no-report">You have not submitted any reports yet.</p>`;
+    } else {
+      userReports.forEach(r => {
+        const div = document.createElement("div");
+        div.className = "report";
+        div.innerHTML = `
+          <p><b>Location:</b> ${r.location}</p>
+          <p><b>Description:</b> ${r.description}</p>
+          <p><b>Quantity:</b> ${r.quantity}</p>
+          ${r.image ? `<img src="${r.image}" alt="Waste Image">` : ""}
+          <p class="status">Status: ${r.status}</p>
+          <p><small>${r.date}</small></p>
+        `;
+        container.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>

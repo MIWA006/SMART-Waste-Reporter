@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Waste Reporter</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: #eef3f7;
+      padding-top: 70px;
+      overflow-x: hidden;
+      color: #222;
+    }
+
+    /* Header */
+    header {
+      background: #01460b;
+      color: white;
+      width: 100%;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    header h1 {
+      font-size: 1.4em;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95em;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffeb3b;
+    }
+
+    #notify {
+      background: crimson;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 50%;
+      display: none;
+      font-weight: bold;
+      font-size: 0.9em;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Reports Container */
+    #adminReports {
+      padding: 30px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .report {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 600px;
+      transition: transform 0.3s;
+    }
+
+    .report:hover {
+      transform: scale(1.02);
+    }
+
+    .report h3 {
+      color: #01460b;
+      margin-bottom: 8px;
+      font-size: 1.2em;
+    }
+
+    .report p {
+      margin: 5px 0;
+      line-height: 1.5;
+    }
+
+    .status {
+      font-weight: bold;
+      color: #0078d4;
+      margin-top: 10px;
+    }
+
+    img {
+      display: block;
+      margin: 10px auto;
+      max-width: 200px;
+      border-radius: 10px;
+    }
+
+    /* Buttons */
+    button {
+      margin: 8px 5px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .approve { background: #28a745; }
+    .resolve { background: #0078d4; }
+    .clear { background: crimson; }
+
+    button:hover { opacity: 0.85; }
+
+    /* Footer */
+    footer {
+      background: #01460b;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 0.95em;
+      border-top: 3px solid #066812;
+      margin-top: 50px;
+    }
+
+    footer strong {
+      color: #ffeb3b;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background: #01460b;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        padding: 15px 0;
+        text-align: center;
+      }
+
+      nav.active { display: flex; }
+
+      .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+      }
+
+      .menu-toggle span {
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 4px 0;
+        border-radius: 2px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Admin Dashboard</h1>
+
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav id="nav-links">
+      <a href="index.html" id="logoutBtn">Logout</a>
+      <span id="notify">!</span>
+    </nav>
+  </header>
+
+  <div id="adminReports"></div>
+
+  <footer>
+    <div class="footer-content">
+      <p>© 2025 <strong>Waste Reporter</strong>. Computer Science Department.</p>
+      <p>Developed with 💚 for a cleaner Campus.</p>
+    </div>
+  </footer>
+
+<script>
+
+// Mobile Navbar Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+  const container = document.getElementById("adminReports");
+  const notify = document.getElementById("notify");
+
+  // Logout button
+  document.getElementById("logoutBtn").addEventListener("click", ()=>{
+    // Optionally clear admin session here
+    window.location.href = "index.html";
+  });
+
+  function loadReports() {
+    const allReports = JSON.parse(localStorage.getItem("reports") || "[]");
+    container.innerHTML = "";
+
+    if (allReports.length === 0) {
+      container.innerHTML = "<p>No reports yet.</p>";
+      return;
+    }
+
+    let pendingCount = 0;
+
+    allReports.forEach((r, index) => {
+      const div = document.createElement("div");
+      div.className = "report";
+      div.innerHTML = `
+        <p><b>User:</b> ${r.username}</p>
+        <p><b>Location:</b> ${r.location}</p>
+        <p><b>Description:</b> ${r.description}</p>
+        <p><b>Quantity:</b> ${r.quantity}</p>
+        ${r.image ? `<img src="${r.image}" alt="Waste Image">` : ""}
+        <p><b>Status:</b> ${r.status}</p>
+        <p><small>${r.date}</small></p>
+        <button class="approve" onclick="updateStatus(${index}, 'Approved')">Approve</button>
+        <button class="resolve" onclick="updateStatus(${index}, 'Resolved')">Resolve</button>
+        <button class="clear" onclick="clearReport(${index})">🗑️ Clear</button>
+      `;
+      container.appendChild(div);
+
+      if(r.status === 'Pending') pendingCount++;
+    });
+
+    // Show live notification if there are pending reports
+    if(pendingCount > 0) {
+      notify.style.display = "inline";
+      notify.textContent = pendingCount;
+    } else {
+      notify.style.display = "none";
+    }
+  }
+
+  function updateStatus(index, newStatus) {
+    const allReports = JSON.parse(localStorage.getItem("reports") || "[]");
+    allReports[index].status = newStatus;
+    localStorage.setItem("reports", JSON.stringify(allReports));
+    loadReports();
+  }
+
+  function clearReport(index) {
+    const allReports = JSON.parse(localStorage.getItem("reports") || "[]");
+    allReports.splice(index, 1);
+    localStorage.setItem("reports", JSON.stringify(allReports));
+    loadReports();
+  }
+
+  // Live admin notification
+  window.addEventListener("storage", (e) => {
+    if (e.key === "notifyAdmin") {
+      loadReports();
+    }
+  });
+
+  loadReports();
+</script>
+
+</body>
+</html>

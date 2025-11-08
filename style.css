@@ -1,0 +1,294 @@
+/* ===================== RESET & GLOBAL ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f4f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+
+/* Navbar */
+header {
+  background-color:#01460b;
+  padding: 15px 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: #fff;
+  font-size: 1.8rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #1abc9c;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 50px 20px;
+  background-color: #ecf0f1;
+}
+
+.hero-content {
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+.hero-content h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: #34495e;
+}
+
+.hero-content p span{
+  color: rgb(0, 54, 0);
+}
+
+
+.hero-buttons .btn {
+  padding: 12px 25px;
+  margin-right: 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn-login {
+  background-color: rgb(1, 99, 1);
+  color: #fff;
+}
+
+.btn-login:hover {
+  background-color: rgb(1, 51, 1);
+}
+
+.btn-register {
+  background-color: rgb(1, 98, 1);
+  color: #fff;
+}
+
+.btn-register:hover {
+  background-color: rgb(1, 53, 1);
+}
+
+/* Hero Image */
+.hero-image img {
+  max-width: 500px;
+  border-radius: 10px;
+}
+
+
+/* ===================== CONTAINER ===================== */
+.container {
+  width: 80%;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #28a745;
+}
+
+/* ===================== FORMS ===================== */
+form input,
+form textarea,
+form select,
+form button {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+form textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+form button {
+  background: #28a745;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+
+form button:hover {
+  background: #218838;
+}
+
+.container p {
+  text-align: center;
+  font-size: 14px;
+}
+
+.container p a {
+  color: #28a745;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.container p a:hover {
+  text-decoration: underline;
+}
+
+/* ===================== REPORT CARDS ===================== */
+#reportForm {
+  border: 1px solid #eee;
+  background: #fafafa;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.report:hover {
+  background: #f1f1f1;
+}
+
+#image{
+  max-width: 200px;
+  border-radius: 6px;
+  margin-top: 10px;
+  display: block;
+}
+
+/* Status Styles */
+.report-status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.report-status.pending {
+  background: #ffc107;
+  color: black;
+}
+
+.report-status.resolved {
+  background: #28a745;
+  color: white;
+}
+
+/* ===================== ADMIN BUTTONS ===================== */
+.report button {
+  margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.report button:first-of-type {
+  background: #28a745;
+  color: white;
+}
+
+.report button:first-of-type:hover {
+  background: #218838;
+}
+
+.report button:last-of-type {
+  background: #ffc107;
+  color: black;
+}
+
+.report button:last-of-type:hover {
+  background: #e0a800;
+}
+
+/* ===================== DASHBOARD ===================== */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dashboard h2 {
+  color: #28a745;
+}
+
+/* ===================== FOOTER ===================== */
+footer {
+  background: #084000;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+footer a {
+  color: #28a745;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding: 50px 20px;
+      }
+
+      .hero-text {
+        padding-right: 0;
+        margin-top: 30px;
+      }
+
+      .hero-image img {
+        max-width: 350px;
+      }
+    }
